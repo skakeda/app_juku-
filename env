@@ -1,0 +1,12 @@
+
+export DB_HOST=localhost
+export DB_PORT=3306
+export DB_NAME=seweb
+export DB_USER=root
+export DB_PASSWORD=
+export DB_MAXCONN=15
+export DB_MAXIDLE=10
+export DB_MAXLIFEMINUTE=5
+
+
+
