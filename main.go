@@ -9,4 +9,5 @@ fmt.Println("I'm yichikawa")
 fmt.Println("大園")
 fmt.Println("yatani")
 fmt.Println("安田")
+fmt.Println("yatani_2")
 }
