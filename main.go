@@ -10,5 +10,5 @@ fmt.Println("大園")
 fmt.Println("yatani")
 fmt.Println("安田")
 fmt.Println("yatani_2")
-fmt.Println("skakeda_pullreqest")
+fmt.Println("skakeda_pullrequest")
 }
