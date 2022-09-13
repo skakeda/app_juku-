@@ -4,41 +4,68 @@ import(
   "net/http"
   "html/template"
   "database/sql"
+  "strconv"
+  "time"
+  "os"
   _ "github.com/go-sql-driver/mysql"
   _ "fmt"
-   "log"
+  _ "log"
 )
 
-func main() {
-    http.HandleFunc("/yatani", yatani)
-    http.ListenAndServe(":8000", nil)
+var DB *sql.DB
+var HTMLTemplates *template.Template
+
+func init() {
 }
 
-func yatani(w http.ResponseWriter, r *http.Request) {
-    db, err := sql.Open("mysql", "root@tcp(127.0.0.1:3306)/seweb")
-    		if err != nil {
-			panic(err.Error())
-		}
-    defer db.Close()  
+func main() {
+  // DB接続
+    DBConnect()
+  // Template読み込み
+    HTMLTemplates = template.Must(template.ParseGlob("templates/*tpl"))
+  // WEBサーバ起動
+    startWebServer()
+}
 
-    rows, err := db.Query("SELECT body FROM articles WHERE id=1")
+func DBConnect() {
+  // DB接続用文字列作成
+    connectString := os.Getenv("DB_USER") + ":" + os.Getenv("DB_PASSWORD") + "@tcp(" + 
+                    os.Getenv("DB_HOST") + ":" + os.Getenv("DB_PORT") + ")/" + os.Getenv("DB_NAME")
+    var err error
+  // 接続
+    DB, err = sql.Open("mysql", connectString)
                 if err != nil {
                         panic(err.Error())
                 }
-    defer rows.Close()
+  // 環境変数の値を設定
+    if os.Getenv("DB_MAXCONN") != "" {
+        DB.SetMaxOpenConns(Must(strconv.Atoi(os.Getenv("DB_MAXCONN"))))
+    }
+    if os.Getenv("DB_MAXIDLECONN") != "" {
+        DB.SetMaxIdleConns(Must(strconv.Atoi(os.Getenv("DB_MAXIDLECONN"))))
+    }
+    if os.Getenv("DB_MAXLIFEMINUT") != "" {
+        DB.SetConnMaxLifetime(time.Duration(Must(strconv.Atoi(os.Getenv("DB_MAXLIFEMINUTE")))) *time.Minute)
+    }
+    // if os.Getenv("DB_MAXIDLETIME") != "" {
+    //   DB.SetConnMaxIdleTime(time.Duration(Must(strconv.Atoi(os.Getenv("DB_MAXIDLETIME")))) *time.Minute)
+    // }
+}
 
-    var body string
-    rows.Next()
-    rows.Scan(&body)
-// log.Print(body)
-    t , err := template.ParseFiles("yatani.tpl")
+func startWebServer(){
+    http.HandleFunc("/yatani", yataniHandler)
+    http.ListenAndServe(":8080", nil)
+}
+
+func Must(num int, err error) int {
                 if err != nil {
                         panic(err.Error())
                 }
-    t.Execute(w, body)
+  return num
 }
 
 // create database seweb;
 // create table articles (id int, body varchar(255));
 // insert into articles values(1,'矢谷のページ');
+
 
