@@ -15,4 +15,5 @@ fmt.Println("yatani_2")
 fmt.Println("skakeda_pullrequest")
 fmt.Println("yatani_pr2")
 fmt.Println("tozono_20220905")
+fmt.Println("myamagata_20220930")
 }
