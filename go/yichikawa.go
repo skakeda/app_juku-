@@ -7,8 +7,8 @@ import(
   _ "log"
 )
 
-func yataniHandler (w http.ResponseWriter, r *http.Request) {
-    rows, err := DB.Query("SELECT body FROM articles WHERE id=1")
+func yichikawaHandler (w http.ResponseWriter, r *http.Request) {
+    rows, err := DB.Query("SELECT body FROM yichikawa WHERE id=1")
                 if err != nil {
                         panic(err.Error())
                 }
@@ -20,7 +20,7 @@ func yataniHandler (w http.ResponseWriter, r *http.Request) {
                 if err != nil {
                         panic(err.Error())
                 }
-    err = HTMLTemplates.ExecuteTemplate(w, "yatani.tpl", body)
+    err = HTMLTemplates.ExecuteTemplate(w, "yichikawa.tpl", body)
                 if err != nil {
                         panic(err.Error())
                 }

@@ -4,11 +4,11 @@ import(
   "net/http"
   "html/template"
   "database/sql"
-  "strconv"
-  "time"
+  //"strconv"
+  //"time"
   "os"
   _ "github.com/go-sql-driver/mysql"
-  _ "fmt"
+  "fmt"
   _ "log"
 )
 
@@ -29,31 +29,32 @@ func main() {
 
 func DBConnect() {
   // DB接続用文字列作成
-    connectString := os.Getenv("DB_USER") + ":" + os.Getenv("DB_PASSWORD") + "@tcp(" + 
-                    os.Getenv("DB_HOST") + ":" + os.Getenv("DB_PORT") + ")/" + os.Getenv("DB_NAME")
-    var err error
+    connectString := os.Getenv("DB_USERNAME") + ":" + os.Getenv("DB_PASSWORD") + "@tcp(" + 
+                    os.Getenv("DB_HOST") + ":" + os.Getenv("DOCKER_DB_PORT") + ")/" + os.Getenv("DB_DATABASE")
+    fmt.Println(connectString)
+                    var err error
   // 接続
     DB, err = sql.Open("mysql", connectString)
                 if err != nil {
                         panic(err.Error())
                 }
   // 環境変数の値を設定
-    if os.Getenv("DB_MAXCONN") != "" {
-        DB.SetMaxOpenConns(Must(strconv.Atoi(os.Getenv("DB_MAXCONN"))))
-    }
-    if os.Getenv("DB_MAXIDLECONN") != "" {
-        DB.SetMaxIdleConns(Must(strconv.Atoi(os.Getenv("DB_MAXIDLECONN"))))
-    }
-    if os.Getenv("DB_MAXLIFEMINUT") != "" {
-        DB.SetConnMaxLifetime(time.Duration(Must(strconv.Atoi(os.Getenv("DB_MAXLIFEMINUTE")))) *time.Minute)
-    }
+    //if os.Getenv("DB_MAXCONN") != "" {
+        //DB.SetMaxOpenConns(Must(strconv.Atoi(os.Getenv("DB_MAXCONN"))))
+    //}
+    //if os.Getenv("DB_MAXIDLECONN") != "" {
+        //DB.SetMaxIdleConns(Must(strconv.Atoi(os.Getenv("DB_MAXIDLECONN"))))
+    //}
+    //if os.Getenv("DB_MAXLIFEMINUT") != "" {
+        //DB.SetConnMaxLifetime(time.Duration(Must(strconv.Atoi(os.Getenv("DB_MAXLIFEMINUTE")))) *time.Minute)
+    //}
     // if os.Getenv("DB_MAXIDLETIME") != "" {
     //   DB.SetConnMaxIdleTime(time.Duration(Must(strconv.Atoi(os.Getenv("DB_MAXIDLETIME")))) *time.Minute)
     // }
 }
 
 func startWebServer(){
-    http.HandleFunc("/yatani", yataniHandler)
+    http.HandleFunc("/yichikawa", yichikawaHandler)
     http.ListenAndServe(":8080", nil)
 }
 
