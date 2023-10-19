@@ -8,7 +8,7 @@ import(
 )
 
 func yichikawaHandler (w http.ResponseWriter, r *http.Request) {
-    rows, err := DB.Query("SELECT body FROM yichikawa WHERE id=1")
+    rows, err := DB.Query("SELECT name FROM yichikawa WHERE id=1")
                 if err != nil {
                         panic(err.Error())
                 }

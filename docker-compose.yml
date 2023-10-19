@@ -11,9 +11,22 @@ services:
       - TZ=${APP_TZ:-Asia/Tokyo}
     ports:
       - ${DOCKER_DB_PORT:-3306}:3306
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
   go:
     container_name: go
     build:
       context: ./go
     ports:
       - 8080:8080
+    environment:
+      - DB_DATABASE
+      - DB_USERNAME
+      - DB_PASSWORD
+      - DB_HOST
+      - DOCKER_DB_PORT
+    depends_on:
+      mysql:
+        condition: service_healthy
