@@ -4,8 +4,6 @@ import(
   "net/http"
   "html/template"
   "database/sql"
-  //"strconv"
-  //"time"
   "os"
   _ "github.com/go-sql-driver/mysql"
   "fmt"
@@ -38,19 +36,6 @@ func DBConnect() {
                 if err != nil {
                         panic(err.Error())
                 }
-  // 環境変数の値を設定
-    //if os.Getenv("DB_MAXCONN") != "" {
-        //DB.SetMaxOpenConns(Must(strconv.Atoi(os.Getenv("DB_MAXCONN"))))
-    //}
-    //if os.Getenv("DB_MAXIDLECONN") != "" {
-        //DB.SetMaxIdleConns(Must(strconv.Atoi(os.Getenv("DB_MAXIDLECONN"))))
-    //}
-    //if os.Getenv("DB_MAXLIFEMINUT") != "" {
-        //DB.SetConnMaxLifetime(time.Duration(Must(strconv.Atoi(os.Getenv("DB_MAXLIFEMINUTE")))) *time.Minute)
-    //}
-    // if os.Getenv("DB_MAXIDLETIME") != "" {
-    //   DB.SetConnMaxIdleTime(time.Duration(Must(strconv.Atoi(os.Getenv("DB_MAXIDLETIME")))) *time.Minute)
-    // }
 }
 
 func startWebServer(){
@@ -64,9 +49,4 @@ func Must(num int, err error) int {
                 }
   return num
 }
-
-// create database seweb;
-// create table articles (id int, body varchar(255));
-// insert into articles values(1,'矢谷のページ');
-
 
