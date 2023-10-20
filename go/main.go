@@ -29,7 +29,6 @@ func DBConnect() {
   // DB接続用文字列作成
     connectString := os.Getenv("DB_USERNAME") + ":" + os.Getenv("DB_PASSWORD") + "@tcp(" + 
                     os.Getenv("DB_HOST") + ":" + os.Getenv("DOCKER_DB_PORT") + ")/" + os.Getenv("DB_DATABASE")
-    fmt.Println(connectString)
                     var err error
   // 接続
     DB, err = sql.Open("mysql", connectString)

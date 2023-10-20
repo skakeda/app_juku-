@@ -1,6 +1,3 @@
-# seweb
-```
-git clone git@github.com:vanx2/seweb.git
-cd seweb
-go run *go
-```
+docker compose up
+
+GoによるWebサーバは8080番ポートをListenします。
