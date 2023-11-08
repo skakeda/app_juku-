@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: seweb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - image:
+          name: app
+          envFrom:
+            - configMapRef:
+                name: special-config
