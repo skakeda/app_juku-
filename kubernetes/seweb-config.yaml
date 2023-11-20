@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: seweb-config
+data:
+  DOCKER_DB_PORT: "3306"
+  DB_DATABASE: test_db
+  DB_USERNAME: dev_user
+  DB_PASSWORD: password
+  DB_HOST: mysql8
+  APP_TZ: Asia/Tokyo
+  MYSQL_DATABASE: test_db
+  MYSQL_USER: dev_user
+  MYSQL_PASSWORD: password
+  MYSQL_ROOT_PASSWORD: password
+  TZ: Asia/Tokyo

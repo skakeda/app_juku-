@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pod
+spec:
+  containers:
+    - name: mysql8
+      image: ghcr.io/yichikawa/seweb-mysql:latest
+      envFrom:
+        - configMapRef:
+            name: seweb-config
+  imagePullSecrets:
+    - name: ghcr
+  restartPolicy: Never
