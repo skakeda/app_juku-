@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: go
+  template:
+    metadata:
+      labels:
+        app: go
+    spec:
+      containers:
+        - image: ghcr.io/yichikawa/seweb-go:latest
+          name: go
+          envFrom:
+            - configMapRef:
+                name: seweb-config
+      imagePullSecrets:
+        - name: ghcr
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: seweb
+spec:
+  selector:
+    app: go
+  ports:
+    - name: seweb
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  sessionAffinity: None
+  type: LoadBalancer
+  loadBalancerSourceRanges:
+    - 158.205.143.164/32
