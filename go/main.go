@@ -39,6 +39,7 @@ func DBConnect() {
 
 func startWebServer(){
     http.HandleFunc("/yichikawa", yichikawaHandler)
+    http.HandleFunc("/tozono", tozonoHandler)
     http.HandleFunc("/syatani", syataniHandler)
     http.ListenAndServe(":8080", nil)
 }
