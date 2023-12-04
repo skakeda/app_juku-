@@ -6,7 +6,6 @@ import(
   "database/sql"
   "os"
   _ "github.com/go-sql-driver/mysql"
-  _ "fmt"
   _ "log"
 )
 
@@ -39,6 +38,7 @@ func DBConnect() {
 
 func startWebServer(){
     http.HandleFunc("/yichikawa", yichikawaHandler)
+    http.HandleFunc("/myamagata", myamagataHandler)
     http.HandleFunc("/tozono", tozonoHandler)
     http.HandleFunc("/syatani", syataniHandler)
     http.ListenAndServe(":8080", nil)
