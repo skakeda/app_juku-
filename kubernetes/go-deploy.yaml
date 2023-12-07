@@ -38,3 +38,5 @@ spec:
   type: LoadBalancer
   loadBalancerSourceRanges:
     - 158.205.143.164/32
+    - 202.230.223.225/32
+    - 210.140.186.241/32
