@@ -41,6 +41,7 @@ func startWebServer(){
     http.HandleFunc("/myamagata", myamagataHandler)
     http.HandleFunc("/tozono", tozonoHandler)
     http.HandleFunc("/syatani", syataniHandler)
+    http.HandleFunc("/skakeda", skakedaHandler)
     http.ListenAndServe(":8080", nil)
 }
 
